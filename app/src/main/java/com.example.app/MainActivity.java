@@ -2,6 +2,7 @@ package com.example.app;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,6 +17,7 @@ public class MainActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // Enable Force Landscape mode
         setContentView(R.layout.activity_main);
         mWebView = findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
@@ -32,6 +34,9 @@ public class MainActivity extends Activity {
         webSettings.setDatabaseEnabled(true);
         webSettings.setSaveFormData(false);
         webSettings.setSavePassword(false);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
         mWebView.setWebViewClient(new MyWebViewClient() {
             @Override
             public void onReceivedSslError(final WebView view, final SslErrorHandler handler, final SslError error) {
@@ -40,10 +45,7 @@ public class MainActivity extends Activity {
         });
 
         // REMOTE RESOURCE
-        // mWebView.loadUrl("https://example.com/something");
-
-        // LOCAL RESOURCE
-        // mWebView.loadUrl("file:///android_asset/index.html");
+        mWebView.loadUrl(getString(R.string.web_url));
     }
 
 
